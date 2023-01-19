@@ -1,17 +1,19 @@
-import {Book} from './book.js';
-import {books} from './books-collection.js';
+import { Book } from './book.js';
+import { books } from './books-collection.js';
 
-
-
-function findBook(genre: string, page: number, multipleRecommendation = true): Book | Book[] {
+function findBook(
+  genre: string,
+  page: number,
+  multipleRecommendation = true,
+): Book | Book[] {
   const findAlgorithm = (book: Book) => {
-    return book.genre === genre && book.pageAmount <= page
-  }
+    return book.genre === genre && book.price <= page;
+  };
 
   if (multipleRecommendation) {
-    return books.filter(findAlgorithm)
+    return books.filter(findAlgorithm);
   } else {
-    return books.find(findAlgorithm)
+    return books.find(findAlgorithm);
   }
 }
 

@@ -1,5 +1,6 @@
 import { renderBlock } from './lib.js';
-import { DateTime } from './luxon.js';
+import { DateTime } from './ts-luxon.js';
+import { Place, SearchFormData, SearchFunction } from './types';
 
 const minDate = DateTime.local();
 const maxDate = minDate.plus({ months: 1 }).endOf('month');
@@ -11,7 +12,7 @@ export function renderSearchFormBlock() {
   renderBlock(
     'search-form-block',
     `
-    <form>
+    <form id='search-form'>
       <fieldset class='search-filedset'>
         <div class='row'>
           <div>
@@ -43,10 +44,10 @@ export function renderSearchFormBlock() {
           </div>
           <div>
             <label for='max-price'>Макс. цена суток</label>
-            <input id='max-price' type='text' value='' name='price' class='max-price' />
+            <input id='max-price' type='number' value='' name='price' class='max-price' />
           </div>
           <div>
-            <div><button>Найти</button></div>
+            <div><button id='submit'>Найти</button></div>
           </div>
         </div>
       </fieldset>
@@ -54,3 +55,29 @@ export function renderSearchFormBlock() {
     `,
   );
 }
+
+interface SearchForm {
+  cb: (err?: Error, result?: Place) => void;
+
+  (form: HTMLFormElement): void;
+}
+
+export const searchFunction: SearchFunction = values => {
+  console.log(values);
+};
+
+export const search = (form, cb) => {
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    console.log('form submitted');
+    const elements = event.currentTarget.elements as SearchFormData;
+    const values = {
+      city: elements.city.value,
+      checkin: elements.checkin.value,
+      checkout: elements.checkout.value,
+      price: elements.price.value,
+    };
+    searchFunction(values);
+    cb();
+  });
+};

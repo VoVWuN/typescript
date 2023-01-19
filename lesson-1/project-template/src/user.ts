@@ -7,10 +7,20 @@ interface renderUserBlockProps {
 }
 
 export function renderUserBlock(
-  favoriteItemsAmount: number,
   userName: string,
   avatarLink: string,
+  favoriteItemsAmount?: number,
 ) {
+  localStorage.setItem(
+    'user',
+    JSON.stringify({ userName: userName, avatarLink: avatarLink }),
+  );
+  if (favoriteItemsAmount) {
+    localStorage.setItem(
+      'favoritesAmount',
+      JSON.stringify({ favoriteItemsAmount: favoriteItemsAmount }),
+    );
+  }
   const favoritesCaption = favoriteItemsAmount
     ? favoriteItemsAmount
     : 'ничего нет';
@@ -32,3 +42,36 @@ export function renderUserBlock(
     `,
   );
 }
+
+class IUser implements Omit<renderUserBlockProps, 'favoriteItemsAmount'> {
+  userName: string;
+  avatarLink: string;
+}
+
+interface getUserDate {
+  (user: string): void;
+}
+
+export const getUserDate: getUserDate = localStorageUser => {
+  const user: unknown = JSON.parse(localStorage.getItem(localStorageUser));
+  if (user instanceof IUser) {
+    console.log(user.userName, user.avatarLink);
+  }
+};
+
+class If implements Pick<renderUserBlockProps, 'favoriteItemsAmount'> {
+  favoriteItemsAmount: number;
+}
+
+interface getFavoriteAmount {
+  (localFavoriteAmounts: string): void;
+}
+
+export const getFavoritesAmount: getFavoriteAmount = localFavoriteAmounts => {
+  const favoriteItemsAmount: unknown = JSON.parse(
+    localStorage.getItem(localFavoriteAmounts),
+  );
+  if (favoriteItemsAmount instanceof If) {
+    console.log(favoriteItemsAmount);
+  }
+};
