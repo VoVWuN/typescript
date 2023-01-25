@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "public/scripts",
+    "module": "es2015",
+    "target": "es2015",
+    "moduleResolution": "Node",
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "src/study.ts"
+//    "src/index.ts"
+  ]
+}
