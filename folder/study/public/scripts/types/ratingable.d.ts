@@ -1,3 +1,3 @@
 export interface IRatingable {
-  rating: number;
+    rating: number;
 }

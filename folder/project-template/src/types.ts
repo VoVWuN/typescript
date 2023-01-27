@@ -4,10 +4,12 @@ export interface SearchFormData extends HTMLFormControlsCollection {
   checkout: HTMLInputElement;
   price: HTMLInputElement;
   submit: HTMLButtonElement;
+  homy: HTMLInputElement;
+  flat: HTMLInputElement;
 }
 
 export interface Place {
-  id: number;
+  id: number | string;
   image: string;
   name: string;
   description: string;
@@ -15,6 +17,16 @@ export interface Place {
   bookedDates: number[];
   price: number;
   availableDates: any;
+}
+
+export interface Flat {
+  id: string;
+  title: string;
+  details: string;
+  photos: string[];
+  coordinates: number[];
+  bookedDates: [];
+  price: number;
 }
 
 export interface SearchFunction {

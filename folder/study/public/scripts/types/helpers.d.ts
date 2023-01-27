@@ -1,0 +1,10 @@
+import { Book } from './book.js';
+import { IRatingable } from './ratingable.js';
+import { IProduct } from './product';
+import { IGenre } from './types.js';
+export declare function serialize(value: unknown): string;
+export declare function showRating(entity: IRatingable): string;
+export declare function showCart(products: IProduct[]): void;
+export declare function getGenreName(genre: IGenre): any;
+export declare function addToShelf(book: Book, shelfName?: string): void;
+export declare function addToShelfBunch(shelfName: any, ...books: Book[]): void;

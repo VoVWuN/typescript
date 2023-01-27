@@ -4,12 +4,18 @@
     "module": "es2015",
     "target": "es2015",
     "moduleResolution": "Node",
+    "allowJs": true,
+    "declaration": true,
+    "declarationDir": "public/scripts/types"
   },
   "exclude": [
     "node_modules"
   ],
-  "files": [
-    "src/study.ts"
-//    "src/index.ts"
+  "include": [
+    "src/**/*"
   ]
+  //  "files": [
+  //    //    "src/study.ts"
+  //    "src/index.ts"
+  //  ]
 }

@@ -1,13 +1,14 @@
-import('./styles/index.css');
-// import('./styles/reset.css');
-
+import './styles/index.css';
+import './styles/reset.css';
 
 import { renderSearchFormBlock, search } from './search-form';
-import { renderEmptyOrErrorSearchBlock, renderSearchStubBlock } from './search-results';
+import {
+  renderEmptyOrErrorSearchBlock,
+  renderSearchStubBlock,
+} from './search-results';
 import { getFavoritesAmount, getUserDate, renderUserBlock } from './user';
 import { renderToast } from './lib';
 import { Place } from './types';
-
 
 window.addEventListener('DOMContentLoaded', () => {
   renderUserBlock('User', './img/avatar.png');
@@ -30,7 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('search-form');
   const cb = (places: Place[]) => {
-
     // setTimeout(() => {
     //   const chance = Math.random();
     //   // console.log('chance: ', chance);

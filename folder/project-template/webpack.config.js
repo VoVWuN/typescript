@@ -25,13 +25,17 @@ const plugins = () => {
   return list;
 };
 
-const cssLoaders = (extra) => {
+const cssLoaders = extra => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
     },
     {
       loader: 'css-loader',
+      options: {
+        modules: true,
+        importLoaders: 1,
+      },
     },
   ];
 
@@ -59,7 +63,9 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: cssLoaders(),
+        use: cssLoaders({
+          loader: 'css-modules-typescript-loader',
+        }),
       },
       {
         test: /\.(png|svg|jpg|jpeg)$/i,
@@ -71,7 +77,10 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.css'],
+    extensions: ['.ts', '.js'],
+  },
+  externals: {
+    'typescript-flatrent-sdk': 'typescript-flatrent-sdk',
   },
   devServer: {
     static: './',
