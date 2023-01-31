@@ -7,7 +7,7 @@ import {
   renderSearchStubBlock,
 } from './search-results';
 import { getFavoritesAmount, getUserDate, renderUserBlock } from './user';
-import { renderToast } from './lib';
+import { filter, renderToast } from './lib';
 import { Place } from './types';
 
 window.addEventListener('DOMContentLoaded', () => {

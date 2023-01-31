@@ -1,4 +1,4 @@
-import { renderBlock, toggleFavoriteItem } from './lib';
+import { filter, renderBlock, toggleFavoriteItem } from './lib';
 import { Place } from './types';
 import axios from 'axios';
 
@@ -26,15 +26,29 @@ export function renderEmptyOrErrorSearchBlock(reasonMessage) {
   );
 }
 
+export function renderList(places, value = 'minToMax') {
+  const filterValue = 'minToMax';
+  if (value === 'minToMax') {
+    places.sort((a, b) => b.price - a.price);
+    return places;
+  }
+  if (value === 'maxToMin') {
+    places.sort((a, b) => a.price - b.price);
+    return places;
+  }
+}
+
 export function renderSearchResultsBlock(places: Place[]) {
   if (!places) {
     return renderEmptyOrErrorSearchBlock('Ничего не найдено');
   }
+
   let list = document.createElement('ul');
   list.classList.add('results-list');
   let item = document.createElement('li');
 
-  places.forEach(place => {
+  const placesArray = renderList(places);
+  placesArray.forEach(place => {
     item.classList.add('result');
     item.innerHTML = `
     <div class='result-container'>
@@ -68,16 +82,35 @@ export function renderSearchResultsBlock(places: Place[]) {
         <p>Результаты поиска</p>
         <div class='search-results-filter'>
             <span><i class='icon icon-filter'></i> Сортировать:</span>
-            <select>
-                <option selected=''>Сначала дешёвые</option>
-                <option selected=''>Сначала дорогие</option>
-                <option>Сначала ближе</option>
+            <select id='filter'>
+                <option value='minToMax' selected>Сначала дешёвые</option>
+                <option value='maxToMin'>Сначала дорогие</option>
+                <option value='close'>Сначала ближе</option>
             </select>
         </div>
     </div>
     ${list.outerHTML}
     `,
   );
+
+  const filterItem: HTMLSelectElement = document.querySelector('#filter');
+  filterItem.addEventListener('change', () => {
+    const value = filterItem.value;
+    // console.log(filterItem.options[filterItem.options.selectedIndex]);
+    switch (value) {
+      case 'minToMax':
+        places.sort((a, b) => b.price - a.price);
+        renderBlock(
+          'results',
+          `
+    ${list.outerHTML}
+    `,
+        );
+      case 'maxToMin':
+        places.sort((a, b) => a.price - b.price);
+      // renderSearchResultsBlock(places);
+    }
+  });
 
   const bookButtons = document.querySelectorAll('#book');
   bookButtons.forEach(button => {

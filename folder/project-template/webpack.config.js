@@ -33,8 +33,8 @@ const cssLoaders = extra => {
     {
       loader: 'css-loader',
       options: {
-        modules: true,
-        importLoaders: 1,
+        // modules: true,
+        // importLoaders: 1,
       },
     },
   ];
@@ -77,7 +77,7 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.css'],
   },
   externals: {
     'typescript-flatrent-sdk': 'typescript-flatrent-sdk',

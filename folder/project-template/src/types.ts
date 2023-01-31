@@ -32,3 +32,7 @@ export interface Flat {
 export interface SearchFunction {
   (values: any): void;
 }
+
+export interface FilterFunction {
+  (places: Place[]): void;
+}

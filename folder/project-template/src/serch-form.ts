@@ -1,9 +1,9 @@
-import { renderBlock, renderToast } from './lib';
+import { dateToUnixStamp, filter, renderBlock, renderToast } from './lib';
 import { DateTime } from 'ts-luxon';
 import { Flat, Place, SearchFormData, SearchFunction } from './types';
 import axios, { AxiosResponse } from 'axios';
 import { renderSearchResultsBlock } from './search-results';
-import { FlatRentSdk } from 'typescript-flatrent-sdk';
+// import { FlatRentSdk } from 'typescript-flatrent-sdk';
 
 const minDate = DateTime.local();
 const maxDate = minDate.plus({ months: 1 }).endOf('month');
@@ -25,7 +25,7 @@ export function renderSearchFormBlock() {
           </div>
           <div class='providers'>
             <label><input type='checkbox' id='homy' name='provider' value='homy' checked /> Homy</label>
-            <label><input type='checkbox' id='flat' name='provider' value='flat-rent' checked /> FlatRent</label>
+            <label><input type='checkbox' id='flat' name='provider' value='flat-rent' /> FlatRent</label>
           </div>
         </div>
         <div class='row'>
@@ -59,8 +59,6 @@ export function renderSearchFormBlock() {
   );
 }
 
-interface SearchFormDate {}
-
 interface SearchForm {
   cb: (err?: Error, result?: Place) => void;
 
@@ -78,7 +76,7 @@ export const search = (form, cb) => {
     const values = {
       city: elements.city.value,
       checkInDate: new Date(elements.checkin.value),
-      checkOutDate: new Date(elements.checkin.value),
+      checkOutDate: new Date(elements.checkout.value),
       price: +elements.price.value,
       homy: elements.homy.checked,
       flatRent: elements.flat.checked,
@@ -87,9 +85,9 @@ export const search = (form, cb) => {
     localStorage.setItem('values', JSON.stringify(values));
     try {
       let placesArray = [];
-      if (values.flatRent) {
-        const sdk = new FlatRentSdk();
 
+      /*if (values.flatRent) {
+        const sdk = new FlatRentSdk();
         sdk
           .search({
             city: values.city,
@@ -113,16 +111,21 @@ export const search = (form, cb) => {
           .catch(result => {
             console.error('serach incorrect city', result);
           });
-      }
+      }*/
 
       if (values.homy) {
         const response = await axios.get<Place[]>(
-          `http://localhost:3030/places?checkInDate=${values.checkInDate}&checkOutDate=${values.checkOutDate}&coordinates=59.9386,30.3141`,
+          `http://localhost:3030/places?checkInDate=${dateToUnixStamp(
+            values.checkInDate,
+          )}&checkOutDate=${dateToUnixStamp(
+            values.checkOutDate,
+          )}&coordinates=59.9386,30.3141`,
         );
         response.data.forEach(place => {
           placesArray.push(place);
         });
       }
+      localStorage.setItem('places', JSON.stringify(placesArray));
       renderSearchResultsBlock(placesArray);
     } catch (e) {
       console.log(e);

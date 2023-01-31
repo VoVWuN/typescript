@@ -8,14 +8,6 @@
     "declaration": true,
     "declarationDir": "public/scripts/types"
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*"
-  ]
-  //  "files": [
-  //    //    "src/study.ts"
-  //    "src/index.ts"
-  //  ]
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
 }

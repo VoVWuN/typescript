@@ -11,7 +11,6 @@ import { CollectionNew } from './collection.js';
 import { getBookInfo } from './goole-books.js';
 import { IRatingable } from './ratingable.js';
 import { upperCase } from './string-helper.js';
-import { search, lookup, Callback, Book as BookGoogle } from 'google-books-search';
 
 // function findBook(
 //   genre: string,
@@ -124,27 +123,12 @@ console.log(book);
 
 // =================================================================
 console.log('================================================================');
-console.log('Урок 3');
+console.log('Урок 4');
 console.log('================================================================');
 
 console.log('upperCase Text: ', upperCase('Harry Potter'));
 
-// console.log(search, lookup);
-
-const searchCallback: Callback<BookGoogle[]> = (error, results) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(results[0]);
-  }
-};
-
-search('harry potter and the sorcerer\'s stone', {
-  type: 'magazines',
-}, searchCallback);
-
-
-lookup('xieSuAAACAAJ', (err, results) => {
-  if (err) console.log(err);
-  else console.log(results);
-});
+// =================================================================
+console.log('================================================================');
+console.log('Урок 5');
+console.log('================================================================');

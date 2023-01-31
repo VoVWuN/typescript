@@ -12,7 +12,6 @@
   "keywords": [],
   "type": "module",
   "main": "./public/scripts/index.js",
-  "types": "./public/scripts/types/index.d.js",
   "dependencies": {
     "google-books-search": "^0.3.1",
     "http-server": "^14.1.1",
