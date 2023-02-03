@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    //    "baseUrl": "./packages",
+    "outDir": "public/scripts",
+    "module": "es2015",
+    "target": "es2015",
+    "moduleResolution": "Node",
+    "allowJs": true
+    //    "typeRoots": ["./types", "./node_modules/@types"]
+  },
+  "include": ["src/**/*"]
+  //  "exclude": ["node_modules", "types", "packages"]
+}
